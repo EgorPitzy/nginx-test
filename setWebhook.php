@@ -1,4 +1,7 @@
 <?php
+// use env variable to hide tokens and other secret information
+// check this for more information 
+// https://www.php.net/manual/en/reserved.variables.environment.php
 const BOT_TOKEN = '6609905017:AAFe-vqb3NRmCSfZ5cSAVArglMgYNQb1jz8';
 
 //устанавливаем вебхук с помощью этого скрипта (скрипт единоразовый)

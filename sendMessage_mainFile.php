@@ -1,4 +1,7 @@
 <?php
+// use env variable to hide tokens and other secret information
+// check this for more information 
+// https://www.php.net/manual/en/reserved.variables.environment.php
 const BOT_TOKEN = '6609905017:AAFe-vqb3NRmCSfZ5cSAVArglMgYNQb1jz8';
 
 $data = file_get_contents('php://input');
@@ -11,14 +14,16 @@ $data = json_decode($data, true);
 
 if (array_key_exists('message', $data)) {                           // если это объект message
     $userID = $data['message']['from']['id'];
-    if (array_key_exists('text',$data['message'])) $userMessage = $data['message']['text'];
-    else $userMessage = '';	                   
+    // user ternary operator for a small condition
+    $userMessage = array_key_exists('text',$data['message']) ? $data['message']['text'] : '';
 } 
 elseif (array_key_exists('callback_query', $data)) {           // если это объект callback_query
     $userID = $data['callback_query']['from']['id'];
     $userMessage = $data['callback_query']['message']['message_id'];
     $button = $data['callback_query']['data'];
-} else exit();
+} else {
+    exit();
+}
 
 
 //$data = json_decode($data, true);
@@ -39,13 +44,20 @@ $apiURL = 'https://api.telegram.org/bot'.BOT_TOKEN.'/'.$method;
 
 //============================== Работа с кнопками/командами ==============================
 
-
+// split each command on different files, it's more comfortable to work
 //============================== команда /start ==============================
+    // it's a bad idea to use "if else" construction when you have a lot of condition cases, match better to use "switch case" construction
+    // check this for more information
+    // https://www.php.net/manual/en/control-structures.switch.php
+    // or https://www.php.net/manual/ru/language.types.enumerations.php
 if($userMessage == "/start"){
+    // don't create a one big object, you cat create lots part of one object and join it self
     $parameters = array(
         "chat_id" => $userID,
         "text" => "Вас приветствует бот магазина АККУМ-МАГ.\nБудем выбирать аккумулятор для вашего авто?🚗\n\n❗Бот не отвечает на ваши сообщения❌. Пользуйтесь меню ниже👇",
+        // i'm not sure but i think you cat use hash map to create an json-like object and after that call method json_encode
         "reply_markup" => json_encode(
+            // maybe it's possible to use "[]" to create an array, without calling array constructor like "array()"
             array(
                 "keyboard" => array(
                     array(
@@ -75,6 +87,7 @@ if($userMessage == "/start"){
         ),
     );
 }
+// split each command on different files, it's more comfortable to work
 //============================== команда /catalog || кнопка "Каталог" ==============================
 elseif($userMessage == "/catalog" || $userMessage == "Каталог📖"){
     $parameters = array(
@@ -82,6 +95,7 @@ elseif($userMessage == "/catalog" || $userMessage == "Каталог📖"){
         "text" => "Каталог еще в разработке. Скоро будет готов😉",
     );
 }
+// split each command on different files, it's more comfortable to work
 //============================== команда /map || кнопка "Мы на карте города" ==============================
 elseif($userMessage == "/map" || $userMessage == "Мы на карте города📍" || $button == "catalog"){
     $method = 'sendPhoto';
@@ -94,6 +108,7 @@ elseif($userMessage == "/map" || $userMessage == "Мы на карте горо�
     );	
 
 }
+// split each command on different files, it's more comfortable to work
 //============================== команда /questions || кнопка "Частые вопросы" ==============================
 elseif($userMessage == "/questions" || $userMessage == "Частые вопросы❓"){
     $parameters = array(
@@ -142,7 +157,21 @@ elseif($userMessage == "/questions" || $userMessage == "Частые вопро�
             )
         ),
     );
+    
+    // it's a bad idea to use "if else" construction when you have a lot of condition cases, match better to use "switch case" construction
+    // check this for more information
+    // https://www.php.net/manual/en/control-structures.switch.php
+    // or https://www.php.net/manual/ru/language.types.enumerations.php
 
+    // also it's a bad practice to validate predefined inputs like default string, in this case you cau use "enum" like:
+    // enum some_button_values {
+    //     case str_description = 'Почему отправляее через 100% предоплату❓';
+    //     case str_description = 'Через какие почтовые службы отправляете❓';
+    //     case str_description = 'Через какие почтовые службы отправляете❓';
+    // }
+
+    // check this for more information
+    // https://www.php.net/manual/ru/language.enumerations.backed.php
     if($button = "text_1"){
         $parameters = array(
             "chat_id" => $data['message']['from']['id'],

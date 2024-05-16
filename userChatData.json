@@ -1,20 +1,23 @@
-{"update_id":484426879,
-"message":{
-"message_id":51,
-"from":{
-    "id":213521764,
-    "is_bot":false,
-    "first_name":"\u041c\u0438\u043a\u0438\u0442\u0430",
-    "last_name":"\u041c\u0443\u043b\u0435\u043d\u043a\u043e",
-    "username":"l11arabu",
-    "language_code":"ru"
-},
-"chat":{
-    "id":213521764,
-    "first_name":"\u041c\u0438\u043a\u0438\u0442\u0430",
-    "last_name":"\u041c\u0443\u043b\u0435\u043d\u043a\u043e",
-    "username":"l11arabu",
-    "type":"private"
-},
-"date":1708542374,
-"text":"/start"}}
+{
+  "update_id": 484426879,
+  "message": {
+    "message_id": 51,
+    "from": {
+      "id": 213521764,
+      "is_bot": false,
+      "first_name": "\u041c\u0438\u043a\u0438\u0442\u0430",
+      "last_name": "\u041c\u0443\u043b\u0435\u043d\u043a\u043e",
+      "username": "l11arabu",
+      "language_code": "ru"
+    },
+    "chat": {
+      "id": 213521764,
+      "first_name": "\u041c\u0438\u043a\u0438\u0442\u0430",
+      "last_name": "\u041c\u0443\u043b\u0435\u043d\u043a\u043e",
+      "username": "l11arabu",
+      "type": "private"
+    },
+    "date": 1708542374,
+    "text": "/start"
+  }
+}
